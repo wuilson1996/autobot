@@ -229,7 +229,7 @@ class ManageInsta:
         options.add_argument("disable-gpu")
         options.add_argument("no-sandbox")
         path_extention = os.path.abspath("autobot.py").replace("autobot.py", "captchaSolver")
-        path_extention2 = os.path.abspath("autobot.py").replace("autobot.py", "holaVpn")
+        #path_extention2 = os.path.abspath("autobot.py").replace("autobot.py", "holaVpn")
         #path_extention3 = os.path.abspath("autobot.py").replace("autobot.py", "VeePn")
         #path_extention4 = os.path.abspath("autobot.py").replace("autobot.py", "vpn")
         options.add_argument(f"--load-extension={path_extention}")
