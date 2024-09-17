@@ -224,7 +224,7 @@ class ManageInsta:
         return webdriver.Firefox(executable_path=os.path.abspath("geckodriver"), options=options)
 
     def _webdriver(self, proxy_extention=None):
-        options = webdriver.Options()
+        options = webdriver.ChromeOptions()
         #options.add_argument("--headless")
         options.add_argument("disable-gpu")
         options.add_argument("no-sandbox")
