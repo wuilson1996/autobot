@@ -745,12 +745,15 @@ async def received(machine, _url):
             async with websockets.connect(url) as ws:
                 websocket = ws
                 logging.info(f"[+] Connection to Server success! MachineName: {machine}")
+                print(f"[+] Connection to Server success! MachineName: {machine}")
                 while True:
                     try:
                         logging.info("[+] Esperando Datos...")
+                        print("[+] Esperando Datos...")
                         r = await websocket.recv()
                         data = json.loads(r)
                         logging.info(f"{data['email']} {data['object']}")
+                        print(f"{data['email']} {data['object']}")
                         if data["object"] == "SendDm":
                             follows = data["follow"]
                             for f in follows:
