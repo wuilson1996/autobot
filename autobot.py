@@ -210,7 +210,7 @@ class ManageInsta:
     
     def _webdriver(self) -> webdriver.Firefox:
         options = webdriver.FirefoxOptions()
-        #options.add_argument("--headless")
+        options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
         path_extention = os.path.abspath("autobot.py").replace("autobot.py", "captchaSolver")
