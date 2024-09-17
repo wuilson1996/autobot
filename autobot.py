@@ -208,7 +208,14 @@ class ManageInsta:
     def create(self):
         pass
     
-    def _webdriver(self) -> webdriver.Firefox:
+    @classmethod
+    def _webdriver(cls) -> None:
+        if platform.system() == "Windows":
+            return cls._driver_chrome()
+        else:
+            return cls._driver_firefox()
+
+    def _driver_firefox(self):
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
@@ -217,7 +224,7 @@ class ManageInsta:
         options.add_argument(f"--load-extension={path_extention}")
         return webdriver.Firefox(executable_path=os.path.abspath("geckodriver"), options=options)
 
-    def _webdriver2(self, proxy_extention=None) -> webdriver.Chrome:
+    def _driver_chrome(self, proxy_extention=None):
         options = webdriver.Options()
         #options.add_argument("--headless")
         options.add_argument("disable-gpu")
@@ -226,13 +233,13 @@ class ManageInsta:
         path_extention2 = os.path.abspath("autobot.py").replace("autobot.py", "holaVpn")
         #path_extention3 = os.path.abspath("autobot.py").replace("autobot.py", "VeePn")
         #path_extention4 = os.path.abspath("autobot.py").replace("autobot.py", "vpn")
-        options.add_argument(f"--load-extension={path_extention},{path_extention2}")
+        options.add_argument(f"--load-extension={path_extention}")
         path_driver = os.path.abspath("chromedriver.exe")
         #if proxy_extention:
         #    options.add_extension(proxy_extention)
         return webdriver.Chrome(path_driver, options=options)
 
-    def create_account(self, _driver:webdriver.Firefox):
+    def create_account(self, _driver):
         try:
             _driver.get(self.url)
             _driver.implicitly_wait(15)
@@ -351,7 +358,7 @@ class ManageInsta:
             status = False
         return status, block
 
-    def sign_in(self, _driver:webdriver.Firefox):
+    def sign_in(self, _driver):
         _driver.get(self.url)
         _driver.implicitly_wait(15)
         _driver.maximize_window()
@@ -406,7 +413,7 @@ class ManageInsta:
             logging.info(f"Account login problem block: {self._email}")
         return status, block
     
-    def logout(self, _driver:webdriver.Firefox):
+    def logout(self, _driver):
         _driver.get(self.url)
         _driver.implicitly_wait(15)
         time.sleep(4)
@@ -443,7 +450,7 @@ class ManageInsta:
                     break
         return status, block
 
-    def send_dm(self, person_user, text_dm, _driver:webdriver.Firefox):
+    def send_dm(self, person_user, text_dm, _driver):
         _driver.get(self.url+"/"+person_user+"/")
         _driver.implicitly_wait(15)
         #_driver.maximize_window()
@@ -502,7 +509,7 @@ class ManageInsta:
                         logging.info("Error in button Enviar mensaje")
         return status, block
 
-    def get_users(self, person_user, _driver:webdriver.Firefox):
+    def get_users(self, person_user, _driver):
         _driver.get(self.url+"/"+person_user+"/")
         _driver.implicitly_wait(15)
         #_driver.maximize_window()
@@ -512,7 +519,7 @@ class ManageInsta:
         time.sleep(5)
         return self.dialog_data(_driver)
 
-    def dialog_data(self, _driver:webdriver.Firefox):
+    def dialog_data(self, _driver):
         time.sleep(5)
         _dialog = _driver.find_elements_by_xpath("//div[@role='dialog']")
         div_class = ""
@@ -580,7 +587,7 @@ class ManageInsta:
         #actions = ActionChains(_driver)
         #actions.move_to_element(_dialog2).perform()
 
-    def close(self, _driver:webdriver.Firefox):
+    def close(self, _driver):
         _driver.close()
 
     def write_file(self, data):
