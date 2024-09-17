@@ -34,6 +34,7 @@ from bs4 import BeautifulSoup
 import re
 import time
 from time import sleep
+import argparse
 
 _logging = logging.basicConfig(filename="logger.log", level=logging.INFO)
 
@@ -266,9 +267,9 @@ class ManageInsta:
 
             for b in _driver.find_elements_by_xpath("//button[@type='submit']"):
                 if "Registrarte" == str(b.text).strip() or "Siguiente" == str(b.text).strip() or "Sign up" in str(b.text).strip():
+                    logging.info("Click button Registrarte")
                     b.click()
                     break
-            
             time.sleep(2)
             if "Este nombre de usuario no está disponible. Prueba otro." in _driver.page_source or "This username isn't available. Please try another." in _driver.page_source:
                 logging.info(f"Este nombre de usuario no está disponible. Prueba otro: {self._email}")
@@ -291,6 +292,7 @@ class ManageInsta:
             for b in _driver.find_elements_by_tag_name("button"):
                 if "Siguiente" == str(b.text).strip() or "Next" == str(b.text).strip():
                     b.click()
+                    logging.info("Click button Siguiente date")
                     break
             
             time.sleep(5)
@@ -735,9 +737,9 @@ async def task_follow_current(data):
     aux_data["machine"] = "BotMaster"
     await websocket.send(json.dumps(aux_data))
 
-async def received(machine):
+async def received(machine, _url):
     global websocket
-    url = f"wss://4909-2800-484-bb90-be00-ad4f-61a3-3cba-84a7.ngrok-free.app/ws/sync/fda7166a4c4766a77327769624b9416035762dd3/{machine}"
+    url = f"wss://{_url}/ws/sync/fda7166a4c4766a77327769624b9416035762dd3/{machine}"
     while True:
         try:
             async with websockets.connect(url) as ws:
@@ -772,6 +774,11 @@ async def received(machine):
     logging.info(f"[+] Disconnection to Server success! MachineName: {machine}")
 
 if __name__ == "__main__":
-    asyncio.run(received("BotNet3"))
+    parser = argparse.ArgumentParser(description='Autobot Instagram')
+    parser.add_argument('machine', type=str, help='Name machine')
+    parser.add_argument('url', type=str, help='url botMaster')
+    # Parsear los argumentos
+    args = parser.parse_args()
+    asyncio.run(received(args.machine, args.url))
     #create_accounts({"object":"CreateAccount","email":"accountsite8909334@fixco.co","password_email":"8og3:#_o@##c","password":"Colombia123*","username":"accountsite8909334"})
     #sign_in_account({"object":"SignInAccount","email":"accountsite8909334@fixco.co","password_email":"8og3:#_o@##c","password":"Colombia123*","username":"accountsite8909334"})
