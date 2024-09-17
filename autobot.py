@@ -212,7 +212,8 @@ class ManageInsta:
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
-
+        path_extention = os.path.abspath("autobot.py").replace("autobot.py", "captchaSolver")
+        options.add_argument(f"--load-extension={path_extention}")
         return webdriver.Firefox(executable_path=os.path.abspath("geckodriver"), options=options)
 
     def _webdriver2(self, proxy_extention=None) -> webdriver.Chrome:
@@ -220,10 +221,10 @@ class ManageInsta:
         #options.add_argument("--headless")
         options.add_argument("disable-gpu")
         options.add_argument("no-sandbox")
-        path_extention = os.path.abspath("manage_insta.py").replace("manage_insta.py", "captchaSolver")
-        path_extention2 = os.path.abspath("manage_insta.py").replace("manage_insta.py", "holaVpn")
-        #path_extention3 = os.path.abspath("manage_insta.py").replace("manage_insta.py", "VeePn")
-        #path_extention4 = os.path.abspath("manage_insta.py").replace("manage_insta.py", "vpn")
+        path_extention = os.path.abspath("autobot.py").replace("autobot.py", "captchaSolver")
+        path_extention2 = os.path.abspath("autobot.py").replace("autobot.py", "holaVpn")
+        #path_extention3 = os.path.abspath("autobot.py").replace("autobot.py", "VeePn")
+        #path_extention4 = os.path.abspath("autobot.py").replace("autobot.py", "vpn")
         options.add_argument(f"--load-extension={path_extention},{path_extention2}")
         path_driver = os.path.abspath("chromedriver.exe")
         #if proxy_extention:
@@ -736,7 +737,7 @@ async def task_follow_current(data):
 
 async def received(machine):
     global websocket
-    url = f"ws://192.168.20.7:8000/ws/sync/fda7166a4c4766a77327769624b9416035762dd3/{machine}"
+    url = f"wss://4909-2800-484-bb90-be00-ad4f-61a3-3cba-84a7.ngrok-free.app/ws/sync/fda7166a4c4766a77327769624b9416035762dd3/{machine}"
     while True:
         try:
             async with websockets.connect(url) as ws:
@@ -771,6 +772,6 @@ async def received(machine):
     logging.info(f"[+] Disconnection to Server success! MachineName: {machine}")
 
 if __name__ == "__main__":
-    asyncio.run(received("BotNet2"))
+    asyncio.run(received("BotNet3"))
     #create_accounts({"object":"CreateAccount","email":"accountsite8909334@fixco.co","password_email":"8og3:#_o@##c","password":"Colombia123*","username":"accountsite8909334"})
     #sign_in_account({"object":"SignInAccount","email":"accountsite8909334@fixco.co","password_email":"8og3:#_o@##c","password":"Colombia123*","username":"accountsite8909334"})
