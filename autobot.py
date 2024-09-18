@@ -70,7 +70,7 @@ class ReCapchat:
                             self._driver.switch_to.default_content()
                             sleep(2)
                             for b in self._driver.find_elements_by_xpath("//button[@type='button']"):
-                                if "Siguiente" == str(b.text).strip():
+                                if "Siguiente" == str(b.text).strip() or "Next" in str(b.text).strip():
                                     b.click()
                                     break
                             break
