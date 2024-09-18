@@ -359,6 +359,7 @@ class ManageInsta:
         except Exception as e:
             logging.info("Error: "+str(e))
             status = False
+            block = False
         return status, block
 
     def sign_in(self, _driver):
