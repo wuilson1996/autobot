@@ -208,7 +208,7 @@ class ManageInsta:
     def create(self):
         pass
     
-    def _webdriver2(self) -> None:
+    def _webdriver(self) -> None:
         if platform.system() == "Windows":
             return self._driver_chrome()
         else:
@@ -223,7 +223,7 @@ class ManageInsta:
         options.add_argument(f"--load-extension={path_extention}")
         return webdriver.Firefox(executable_path=os.path.abspath("geckodriver"), options=options)
 
-    def _webdriver(self, proxy_extention=None):
+    def _driver_chrome(self, proxy_extention=None):
         options = webdriver.ChromeOptions()
         #options.add_argument("--headless")
         options.add_argument("disable-gpu")
