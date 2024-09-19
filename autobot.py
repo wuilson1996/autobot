@@ -748,6 +748,14 @@ async def task_follow_current(data):
     aux_data["machine"] = "BotMaster"
     await websocket.send(json.dumps(aux_data))
 
+async def task_account_current(data):
+    status, block = await task_in_async(data)
+    aux_data = data
+    aux_data["status"] = status
+    aux_data["block"] = block
+    aux_data["machine"] = "BotMaster"
+    await websocket.send(json.dumps(aux_data))
+
 async def received(machine, _url):
     global websocket
     url = f"wss://{_url}/ws/sync/fda7166a4c4766a77327769624b9416035762dd3/{machine}"
@@ -771,12 +779,8 @@ async def received(machine, _url):
                                 data["follow"] = f
                                 asyncio.create_task(task_follow_current(data))
                         else:
-                            status, block = await task_in_async(data)
-                            aux_data = data
-                            aux_data["status"] = status
-                            aux_data["block"] = block
-                            aux_data["machine"] = "BotMaster"
-                            await websocket.send(json.dumps(aux_data))
+                            asyncio.create_task(task_account_current(data))
+                            
                     except Exception as e:
                         logging.info(f"Error al recibir o procesar datos: " + str(e))
                         break
