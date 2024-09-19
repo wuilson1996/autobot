@@ -354,7 +354,7 @@ class ManageInsta:
             time.sleep(5)
             if "hemos suspendido tu cuenta permanentemente." in _driver.page_source or "Intento de inicio de sesión sospechoso" in _driver.page_source or "We Detected An Unusual Login Attempt" in _driver.page_source or "Suspicious Login Attempt" in _driver.page_source or "We suspended your account" in _driver.page_source or "We suspect automated behavior on your account" in _driver.page_source:
                 block = True
-                status = False
+                status = True
                 logging.info(f"Account login problem block: {self._email}")
         except Exception as e:
             logging.info("Error: "+str(e))
