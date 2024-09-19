@@ -237,7 +237,7 @@ class ManageInsta:
             path_driver = os.path.abspath("chromedriver.exe")
         else:
             path_driver = os.path.abspath("chromedriver")
-        
+        print(path_driver)
         #if proxy_extention:
         #    options.add_extension(proxy_extention)
         return webdriver.Chrome(path_driver, options=options)
