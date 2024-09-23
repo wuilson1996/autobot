@@ -108,9 +108,10 @@ class ServiceEmail:
             try:
                 # Buscar correos no leídos
                 status, messages = mail.search(None, 'UNSEEN')
-                email_ids = messages[0].split()
+                email_ids = list(messages[0].split())
                 #print("Check message: "+str(time.time() - start_time))
                 status_received = False
+                email_ids.reverse()
                 for e_id in email_ids:
                     status, msg_data = mail.fetch(e_id, "(RFC822)")
                     for response_part in msg_data:
