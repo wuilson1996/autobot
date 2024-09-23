@@ -104,7 +104,7 @@ class ServiceEmail:
         # Ejecutar el bucle de verificación por 1 minuto
         confirmation_code = None
         start_time = time.time()
-        while time.time() - start_time < 180:
+        while time.time() - start_time < 60:
             try:
                 # Buscar correos no leídos
                 status, messages = mail.search(None, 'UNSEEN')
@@ -319,7 +319,7 @@ class ManageInsta:
             status = True
             block = False
             logging.info("Check code confirmation")
-            while time.time() - start_time < 300:
+            while time.time() - start_time < 180:
                 try:
                     confirmation_code = service_email.received()
                     logging.info(confirmation_code)
