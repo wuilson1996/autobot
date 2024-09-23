@@ -208,11 +208,11 @@ class ManageInsta:
     def create(self):
         pass
     
-    def _webdriver(self) -> None:
-        if platform.system() == "Windows":
-            return self._driver_chrome()
-        else:
-            return self._driver_firefox()
+    def _webdriver(self):
+        #if platform.system() == "Windows":
+        #    return self._driver_chrome()
+        #else:
+        return self._driver_firefox()
 
     def _driver_firefox(self):
         options = webdriver.FirefoxOptions()
